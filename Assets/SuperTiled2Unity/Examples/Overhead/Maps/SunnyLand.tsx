@@ -266,11 +266,21 @@
   <properties>
    <property name="unity_layer" value="Ground"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0">
+    <polygon points="0,0 16,0 16,16 0,16"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="204">
   <properties>
    <property name="unity_layer" value="Ground"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0">
+    <polygon points="0,0 16,0 16,16 0,16 0,0"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="207">
   <properties>
@@ -312,11 +322,21 @@
   <properties>
    <property name="unity_layer" value="Ground"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0">
+    <polygon points="0,0 16,0 16,16 0,16 0,0"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="224">
   <properties>
    <property name="unity_layer" value="Ground"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0">
+    <polygon points="0,0 16,0 16,16 0,16"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="227">
   <properties>
