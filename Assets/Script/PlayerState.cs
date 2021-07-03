@@ -86,10 +86,15 @@ public class PlayerState : MonoBehaviour
         Time.timeScale = 0f;
         player.playerAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
 
-        yield return StartCoroutine(DeathDelay(2.0f));
+        yield return StartCoroutine(WaitForRealSeconds(2));
+
+        GameMaster.KillPlayer(this);
+
+        yield return StartCoroutine(DeathDelay(1f));
         player.playerAnim.SetBool("IsDead", false);
         player.mainAnim.SetBool("IsDead", false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        player.currentState = Player.states.bear;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
        //Debug.Log("death");
     }
 
