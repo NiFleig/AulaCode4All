@@ -189,3 +189,69 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
+  - m_From: Chicken Cam
+    m_To: JumpT Cam
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: JumpT Cam
+    m_To: Chicken Cam
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Pillar Cam
+    m_To: Maze Cam
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Pillar Cam
+    m_To: Cam Fall
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Cam Fall
+    m_To: Pillar Cam
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Maze Cam
+    m_To: Pillar Cam
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
