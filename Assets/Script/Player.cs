@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     float airAcceleration = .2f;
     float groundAcceleration = .1f;
 
-    public enum states {bear, chicken, monkey, fish, death, pause}
+    public enum states {naked, bear, chicken, monkey, fish, death, pause}
 
     public states currentState;
 
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.RightShift))
+        if(Input.GetKeyDown(KeyCode.RightShift) && currentState == Player.states.bear)
         {
             attack.Action();
 
@@ -137,26 +137,26 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha1) && playerState.bearEquip == true)
         {
             currentState = states.bear;
-            playerAnim = animatorList[0];
+            playerAnim = animatorList[1];
 
             wallJump.wSlide = false;
         }
         if(Input.GetKeyDown(KeyCode.Alpha2) && playerState.chickenEquip == true)
         {
             currentState = states.chicken;
-            playerAnim = animatorList[1];
+            playerAnim = animatorList[2];
 
             wallJump.wSlide = false;
         }
         if(Input.GetKeyDown(KeyCode.Alpha3) && playerState.monkeyEquip == true)
         {
             currentState = states.monkey;
-            playerAnim = animatorList[2];
+            playerAnim = animatorList[3];
         }
         if(Input.GetKeyDown(KeyCode.Alpha4) && playerState.fishEquip == true)
         {
             currentState = states.fish;
-            playerAnim = animatorList[3];
+            playerAnim = animatorList[4];
 
             wallJump.wSlide = false;
         }

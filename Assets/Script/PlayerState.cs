@@ -12,10 +12,12 @@ public class PlayerState : MonoBehaviour
     public bool monkeyEquip = false;
     public bool fishEquip = false;
 
+    public GameObject noSuit;
     public GameObject bearSuit;
     public GameObject chickenSuit;
     public GameObject monkeySuit;
     public GameObject fishSuit;
+
 
     public GameObject pauseUI;
 
@@ -33,6 +35,7 @@ public class PlayerState : MonoBehaviour
     {
         if(bearEquip == true && player.currentState == Player.states.bear)
         {
+            noSuit.SetActive(false);
             bearSuit.SetActive(true);
             chickenSuit.SetActive(false);
             monkeySuit.SetActive(false);
@@ -41,6 +44,7 @@ public class PlayerState : MonoBehaviour
 
         if(chickenEquip == true && player.currentState == Player.states.chicken)
         {
+            noSuit.SetActive(false);
             bearSuit.SetActive(false);
             chickenSuit.SetActive(true);
             monkeySuit.SetActive(false);
@@ -52,6 +56,7 @@ public class PlayerState : MonoBehaviour
 
         if(monkeyEquip == true && player.currentState == Player.states.monkey)
         {
+            noSuit.SetActive(false);
             bearSuit.SetActive(false);
             chickenSuit.SetActive(false);
             monkeySuit.SetActive(true);
@@ -63,6 +68,7 @@ public class PlayerState : MonoBehaviour
 
         if(fishEquip == true && player.currentState == Player.states.fish)
         {
+            noSuit.SetActive(false);
             bearSuit.SetActive(false);
             chickenSuit.SetActive(false);
             monkeySuit.SetActive(false);
