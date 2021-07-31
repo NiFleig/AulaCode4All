@@ -24,6 +24,7 @@ public class CharacterController : MonoBehaviour
     public Player player;
     public PlayerState state;
 
+    public bool test;
     
 
     void Start()
@@ -188,7 +189,7 @@ public class CharacterController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Obstacle")
+        if(collision.collider.tag == "Obstacle" && test == false)
         {
             StartCoroutine(state.Death());
             player.currentState = Player.states.death;
