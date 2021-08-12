@@ -1,36 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
     public float duration;
     public float force;
+    public float elapsedTime;
 
-    public float minX;
-    public float maxX;
-    public float minY;
-    public float maxY;
+    private CinemachineVirtualCamera shakeCam;
+    public CinemachineVirtualCamera backToCam;
+
+    private void Awake()
+    {
+      shakeCam = GetComponent<CinemachineVirtualCamera>();
+    }
+
+    private void Update()
+    {
+      if(elapsedTime > 0)
+      {
+        elapsedTime -= Time.deltaTime;
+      }else
+      {
+        CinemachineBasicMultiChannelPerlin perlin = shakeCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        perlin.m_AmplitudeGain = 0;
+        changePriority();
+      }
+    }
 
     public void Shake()
     {
-      Vector3 currentPosition = transform.localPosition;
+      CinemachineBasicMultiChannelPerlin perlin = shakeCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-      float elapsedTime = 0f;
+      perlin.m_AmplitudeGain = force;
+      elapsedTime = duration;
+    }
 
-      while(elapsedTime < duration)
-      {
-        float shakeX = Random.Range(minX, maxX)*force;
-        float shakeY = Random.Range(minY, maxY)*force;
+    public IEnumerator changePriority()
+    {
+      backToCam.Priority = 15;
+      shakeCam.Priority = 1;
 
-        transform.localPosition = new Vector3(shakeX, shakeY, currentPosition.z);
-
-        elapsedTime += Time.deltaTime;
-
-        Debug.Log("shaking");
-      }
-
-      transform.localPosition = currentPosition;
-      Debug.Log("Stop Shaking");
+      return null;
     }
 }
