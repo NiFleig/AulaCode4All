@@ -14,11 +14,13 @@ public class CheckPoint : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other){
         if(other.GetComponent<Collider2D>().tag == "Player")
         {
-            GameMaster.gm.checkpoints.Add(transform);
+            //GameMaster.gm.checkpoints.Add(transform);
 
-            gameObject.transform.parent.DetachChildren();
+            //gameObject.transform.parent.DetachChildren();
 
-            checkCollider.enabled = false;
+            //checkCollider.enabled = false;
+
+            GameMaster.gm.spawnPosition = other.transform.position;
         }
     }
 }

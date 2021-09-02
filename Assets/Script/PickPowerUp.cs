@@ -17,7 +17,7 @@ public class PickPowerUp : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.CompareTag("Player"))
         {
             if(powerToEnable.powerName == "Bear")
             {
@@ -35,9 +35,11 @@ public class PickPowerUp : MonoBehaviour
             {
                 state.fishEquip = true;
             }
+            StartCoroutine(EffectDelay());
         }
-
-        StartCoroutine(EffectDelay());
+        Debug.Log("debug");
+        //StartCoroutine(EffectDelay());
+        
     }
 
     IEnumerator EffectDelay()
