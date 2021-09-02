@@ -14,6 +14,8 @@ public class GameMaster : MonoBehaviour
     public Vector3 spawnPosition {get {return checkpoints[checkpoints.Count -1].position; } }
     public CheckPoint curCheckpoint {get { return checkpoints[checkpoints.Count - 1].GetComponent<CheckPoint>();}}
 
+    public float spawnPointReset = 0;
+
     void Awake()
     {
         if(gm == null)

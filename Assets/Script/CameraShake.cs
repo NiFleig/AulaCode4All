@@ -27,6 +27,7 @@ public class CameraShake : MonoBehaviour
         CinemachineBasicMultiChannelPerlin perlin = shakeCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         perlin.m_AmplitudeGain = 0;
+
         changePriority();
       }
     }
