@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public DoubleJump doubleJump;
     public Attack attack;
     public WallClimb wallClimb;
+    public Swing swing;
     private PlayerState playerState;
 
     public Vector3 velocity;
@@ -165,7 +166,19 @@ public class Player : MonoBehaviour
 
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVeloX, ref smoothVelocity, (controller2D.info.down) ? groundAcceleration : airAcceleration);
         velocity.y += grav * Time.deltaTime;
-        controller2D.Move(velocity * Time.deltaTime);
+
+        if(!swing.isHooked)
+        {
+            controller2D.Move(velocity * Time.deltaTime);
+        }else
+        {
+            velocity.y = 0;
+            if(Vector2.Distance(transform.position, swing.swingPosition.position) > .1)
+            {
+                var direction = (swing.swingPosition.position - transform.position).normalized;
+                controller2D.Move(direction * swing.swingSpeed * Time.deltaTime);
+            }
+        }
 
         if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
@@ -173,3 +186,4 @@ public class Player : MonoBehaviour
         }
     }
 }
+
