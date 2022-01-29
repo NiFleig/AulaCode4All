@@ -1080,6 +1080,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &70776349 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2927196566149183567, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
+  m_PrefabInstance: {fileID: 2927196566971846370}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d358e47ad23e4e94781a2cac4a302a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &89229639
 GameObject:
   m_ObjectHideFlags: 0
@@ -20124,7 +20135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365751121645547375, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
       propertyPath: layer.m_Bits
-      value: 7735
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 365751121645547375, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
       propertyPath: swing
@@ -20137,7 +20148,7 @@ PrefabInstance:
     - target: {fileID: 365751121645547375, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1986528750}
+      objectReference: {fileID: 70776349}
     - target: {fileID: 365751121645547375, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
       propertyPath: swingPrefab
       value: 
@@ -20154,6 +20165,10 @@ PrefabInstance:
       propertyPath: swingJumpY
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 365751121645547375, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 1986528750}
     - target: {fileID: 2927196566149183564, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
       propertyPath: test
       value: 0

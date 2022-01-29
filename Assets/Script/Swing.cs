@@ -8,8 +8,9 @@ public class Swing : MonoBehaviour
 
     public float swingSpeed = 5;
 
+    public Player player;
     public LayerMask layer;
-    public Transform player;
+    public Transform playerTransform;
     public GameObject swingPrefab;
     public bool isHooked; 
     [HideInInspector]
@@ -28,28 +29,36 @@ public class Swing : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(player.currentState != Player.states.death)
         {
-            if(!isHooked)
+            if(Input.GetKeyDown(KeyCode.Q))
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, AimDirection(), range, layer);
-
-                if(hit.collider != null)
+                if(!isHooked)
                 {
-                    print(hit.collider.name);
-                    isHooked = true;
-                    currentSwingObject = InstantiateSwingObject(hit.point);
-                    swingPosition = currentSwingObject.transform.Find("SwingPivot"); 
-                    swingPosition.transform.position = player.position;
-                }
-            }else
-            {
-                var playerComponent = player.GetComponent<Player>();
-                var swingObjectVelocity = currentSwingObject.transform.Find("SwingPivot").GetComponent<Rigidbody2D>().velocity;
-                playerComponent.velocity = new Vector3(swingObjectVelocity.x * swingJumpX,swingObjectVelocity.y * swingJumpY,0);
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, AimDirection(), range, layer);
 
-                isHooked = false;
-                Destroy(currentSwingObject);
+                    if(hit.collider != null)
+                    {
+                        print(hit.collider.name);
+                        isHooked = true;
+                        currentSwingObject = InstantiateSwingObject(hit.point);
+                        swingPosition = currentSwingObject.transform.Find("SwingPivot"); 
+                        swingPosition.transform.position = playerTransform.position;
+                    }
+                }else
+                {
+                    var swingObjectVelocity = currentSwingObject.transform.Find("SwingPivot").GetComponent<Rigidbody2D>().velocity;
+                    player.velocity = new Vector3(swingObjectVelocity.x * swingJumpX,1 * swingJumpY,0);
+
+                    isHooked = false;
+                    Destroy(currentSwingObject);
+                }
+            }
+        }else
+        {
+            if(currentSwingObject != null)
+            {
+               Destroy(currentSwingObject); 
             }
         }
     
