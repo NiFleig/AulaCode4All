@@ -112,6 +112,11 @@ public class Player : MonoBehaviour
                     playerAnim.SetBool("WallJump", true);
                 }
             }
+
+            if (swing.isHooked && controller2D.info.down)
+            {
+                swing.distanceJoint2D.distance -= 7;
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.RightShift) && currentState == Player.states.bear)
@@ -167,16 +172,22 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVeloX, ref smoothVelocity, (controller2D.info.down) ? groundAcceleration : airAcceleration);
         velocity.y += grav * Time.deltaTime;
 
-        if(!swing.isHooked)
-        {
+        if (!swing.isHooked)
             controller2D.Move(velocity * Time.deltaTime);
-        }else
+        else
         {
-            velocity.y = 0;
-            if(Vector2.Distance(transform.position, swing.swingPosition.position) > .1)
+            if (!controller2D.info.down)
             {
-                var direction = (swing.swingPosition.position - transform.position).normalized;
-                controller2D.Move(direction * swing.swingSpeed * Time.deltaTime);
+                if (Vector2.Distance(transform.position, swing.swingPosition.position) > .5f)
+                {
+                    var direction = (swing.swingPosition.position - transform.position).normalized;
+                    controller2D.Move(direction * swing.SwingSpeed * Time.deltaTime);
+                }
+            }
+            else
+            {
+                controller2D.Move(velocity * Time.deltaTime);
+                swing.swingPosition.transform.position = transform.position;
             }
         }
 
@@ -185,5 +196,5 @@ public class Player : MonoBehaviour
             pause = !pause;
         }
     }
-}
 
+}

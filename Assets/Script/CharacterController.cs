@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour
     BoxCollider2D collider;
     RayCastOrigins rayOrigins;
     public int hRay = 3;
-    public int vRay = 3;
+    public int vRay = 5;
 
     float hSpacing;
     float vSpacing;
@@ -24,15 +24,12 @@ public class CharacterController : MonoBehaviour
     public Player player;
     public PlayerState state;
 
-    public bool test;
-    
+    public bool EnableInvincibility;
 
     void Start()
     {
         player = GetComponent<Player>();
         state = GetComponent<PlayerState>();
-
-        
 
         collider = GetComponent<BoxCollider2D>();
         CalculateRaySpacing();
@@ -189,7 +186,7 @@ public class CharacterController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Obstacle" && test == false)
+        if(collision.collider.tag == "Obstacle" && EnableInvincibility == false)
         {
             StartCoroutine(state.Death());
             player.currentState = Player.states.death;
