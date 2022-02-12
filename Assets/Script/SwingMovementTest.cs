@@ -24,10 +24,24 @@ public class SwingMovementTest : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.D))
-            rb.AddForce(new Vector2(1 * movementForce, 0), ForceMode2D.Force);
-        if(Input.GetKeyDown(KeyCode.A))
-            rb.AddForce(new Vector2(-1 * movementForce, 0), ForceMode2D.Force);
+        Vector2 direction = rb.velocity.normalized;
+        //print(direction.);
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            if(direction.x > 0)
+                rb.AddForce(direction * (movementForce), ForceMode2D.Force);
+            if(direction.x < 0)
+                rb.AddForce(direction * (-movementForce), ForceMode2D.Force);
+            
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            if(direction.x > 0)
+                rb.AddForce(direction * (-movementForce), ForceMode2D.Force);
+            if(direction.x < 0)    
+                rb.AddForce(direction * (movementForce), ForceMode2D.Force);
+        }
         
         //print(HInput);
         //if(HInput != 0)
