@@ -35,6 +35,13 @@ public class Swing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (isHooked)
+        //{
+        //    Vector2 distance = SwingPrefab.transform.position.normalized - swingPosition.position.normalized;
+        //    print(Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg);
+        //}
+            //print(Vector2.SignedAngle(SwingPrefab.transform.position, swingPosition.position));
+
         if (player.currentState != Player.states.death)
         {
             if (Input.GetKeyDown(KeyCode.Q))
