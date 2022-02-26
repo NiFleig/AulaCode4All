@@ -72,11 +72,13 @@ public class Swing : MonoBehaviour
                     Destroy(currentSwingObject);
                 }
             }
-
-            if (Input.mouseScrollDelta.y != 0)
+            if (isHooked)
             {
-                distanceJoint2D = currentSwingObject.GetComponent<DistanceJoint2D>();
-                distanceJoint2D.distance += Input.mouseScrollDelta.normalized.y * ChangeDistanceSpeed;
+                if (Input.mouseScrollDelta.y != 0)
+                {
+                    distanceJoint2D = currentSwingObject.GetComponent<DistanceJoint2D>();
+                    distanceJoint2D.distance += Input.mouseScrollDelta.normalized.y * ChangeDistanceSpeed;
+                }
             }
         }
         else
