@@ -81,19 +81,25 @@ public class Swing : MonoBehaviour
             {
                 //if para qnd o tamanho da corda for maior que X, voltar para o máximo
                 if (distanceJoint2D != null)
-                {
-                    if (distanceJoint2D.distance < maxRopeRange)
+                {   
+                    if(distanceJoint2D.distance > minRopeRange)
                     {
-                        print(distanceJoint2D.distance);
-
-                        if (Input.mouseScrollDelta.y != 0)
+                        if (distanceJoint2D.distance < maxRopeRange)
                         {
-                            distanceJoint2D.distance += Input.mouseScrollDelta.normalized.y * ChangeDistanceSpeed;
+                            print(distanceJoint2D.distance);
+
+                            if (Input.mouseScrollDelta.y != 0)
+                            {
+                                distanceJoint2D.distance += Input.mouseScrollDelta.normalized.y * ChangeDistanceSpeed;
+                            }
+                        }
+                        else
+                        {
+                            distanceJoint2D.distance -= 0.1f;
                         }
                     }
-                    else
-                    {
-                        distanceJoint2D.distance -= 0.1f;
+                    else{
+                        distanceJoint2D.distance += 0.1f;
                     }
                 }
             }
