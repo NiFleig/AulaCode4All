@@ -39,7 +39,7 @@ public class SwingMovementTest : MonoBehaviour
         //print("Fixed Update "+ transform.parent.name);
         Vector2 dir = (transform.parent.position - PlayerTransform.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        print(angle);
+        //print(angle);
 
         if (angle > MinAngle && angle < MaxAngle)
         {
