@@ -178,10 +178,9 @@ public class Player : MonoBehaviour
         {
             if (!controller2D.info.down)
             {
-                if (Vector2.Distance(transform.position, swing.swingPosition.position) > .5f)
+                if (Vector2.Distance(transform.position, swing.swingPosition.position) > .25f)
                 {
-                    var direction = (swing.swingPosition.position - transform.position).normalized;
-                    controller2D.Move(direction * swing.SwingSpeed * Time.deltaTime);
+                    transform.position = Vector3.Lerp(transform.position, swing.swingPosition.position, swing.SwingSpeed * Time.deltaTime);
                 }
             }
             else

@@ -10,7 +10,11 @@ public class Swing : MonoBehaviour
     public Player player;
     public Transform playerTransform;
     public GameObject SwingPrefab;
-    public float Range;
+    public float aimRange = 20;
+
+    public float maxRopeRange = 5;
+    public float minRopeRange = 2;
+
     public LayerMask LayerMask;
 
     public float SwingSpeed = 10;
@@ -48,7 +52,7 @@ public class Swing : MonoBehaviour
             {
                 if (!isHooked)
                 {
-                    RaycastHit2D hit = Physics2D.Raycast(transform.position, AimDirection(), Range, LayerMask);
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, AimDirection(), aimRange, LayerMask);
                     if (hit.collider != null)
                     {
                         print(hit.collider.name);
@@ -57,6 +61,7 @@ public class Swing : MonoBehaviour
                         if (hit.point.y > playerTransform.position.y && hitPointDistance > minPointDistance)
                         {
                             currentSwingObject = InstantiateSwingObject(hit.point);
+                            distanceJoint2D = currentSwingObject.GetComponent<DistanceJoint2D>();
                             isHooked = true;
                             swingPosition = currentSwingObject.transform.Find("SwingPivot");
                             swingPosition.transform.position = playerTransform.position;
@@ -74,10 +79,22 @@ public class Swing : MonoBehaviour
             }
             if (isHooked)
             {
-                if (Input.mouseScrollDelta.y != 0)
+                //if para qnd o tamanho da corda for maior que X, voltar para o máximo
+                if (distanceJoint2D != null)
                 {
-                    distanceJoint2D = currentSwingObject.GetComponent<DistanceJoint2D>();
-                    distanceJoint2D.distance += Input.mouseScrollDelta.normalized.y * ChangeDistanceSpeed;
+                    if (distanceJoint2D.distance < maxRopeRange)
+                    {
+                        print(distanceJoint2D.distance);
+
+                        if (Input.mouseScrollDelta.y != 0)
+                        {
+                            distanceJoint2D.distance += Input.mouseScrollDelta.normalized.y * ChangeDistanceSpeed;
+                        }
+                    }
+                    else
+                    {
+                        distanceJoint2D.distance -= 0.1f;
+                    }
                 }
             }
         }
@@ -87,7 +104,7 @@ public class Swing : MonoBehaviour
                 Destroy(currentSwingObject);
         }
 
-        Debug.DrawRay(transform.position, AimDirection() * Range, Color.red);
+        Debug.DrawRay(transform.position, AimDirection() * aimRange, Color.red);
         Debug.DrawRay(transform.position, AimDirection() * minPointDistance, Color.cyan);
     }
 
