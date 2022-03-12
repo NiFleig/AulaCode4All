@@ -102,6 +102,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -111,8 +112,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -133,6 +134,8 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -722,6 +725,33 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      RobotBoyJumpSprite_16: -1136277980687570265
+      RobotBoyJumpSprite_13: -8456074712608466050
+      RobotBoyJumpSprite_5: 7350937222527203125
+      RobotBoyJumpSprite_6: -4730856908577721280
+      RobotBoyJumpSprite_10: 8767926930232452426
+      RobotBoyJumpSprite_7: 884821359999359040
+      RobotBoyJumpSprite_9: -1486152111978632428
+      RobotBoyJumpSprite_2: 2554095598350192395
+      RobotBoyJumpSprite_15: -7106556984492097559
+      RobotBoyJumpSprite_21: -592990361601728973
+      RobotBoyJumpSprite_12: -740715361183036002
+      RobotBoyJumpSprite_23: -599592726579285492
+      RobotBoyJumpSprite_17: -5981629058447859007
+      RobotBoyJumpSprite_0: -2880088883558119691
+      RobotBoyJumpSprite_19: 2820265107053983858
+      RobotBoyJumpSprite_20: 1978711058837924816
+      RobotBoyJumpSprite_18: -1377578491585257956
+      RobotBoyJumpSprite_24: 8988296171678048448
+      RobotBoyJumpSprite_4: -2754625561702273988
+      RobotBoyJumpSprite_8: -3761805905268971158
+      RobotBoyJumpSprite_11: -6260077323112292038
+      RobotBoyJumpSprite_25: 5597588366436230182
+      RobotBoyJumpSprite_22: -5836427266053011355
+      RobotBoyJumpSprite_14: -7444405345438647850
+      RobotBoyJumpSprite_3: -6668189741470864847
+      RobotBoyJumpSprite_1: 4003451522844960233
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

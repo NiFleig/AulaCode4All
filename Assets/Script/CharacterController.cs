@@ -37,7 +37,7 @@ public class CharacterController : MonoBehaviour
         info.direction = 1;
     }
 
-    public void Move(Vector3 velocity)
+    public void Move(Vector3 velocity, bool applyMovement = true)
     {
         UpdateRaycastOrigins();
         info.ResetInfo();
@@ -88,7 +88,11 @@ public class CharacterController : MonoBehaviour
             player.playerAnim.SetBool("TouchWall", false);
         }
 
-        transform.Translate(velocity);
+        //Vector3 nextPosition = transform.position + velocity;
+        //transform.position = Vector3.Lerp(transform.position, nextPosition, 1);
+
+        if(applyMovement)
+            transform.Translate(velocity);
     }
 
     void HorizontalCollision(ref Vector3 velocity)
@@ -122,7 +126,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-     void VerticalCollision(ref Vector3 velocity)
+    void VerticalCollision(ref Vector3 velocity)
     {
         float directionY = Mathf.Sign(velocity.y);
 

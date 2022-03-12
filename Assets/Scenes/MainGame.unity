@@ -20238,6 +20238,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1174801253}
     - target: {fileID: 1456490128675886467, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
+      propertyPath: aimRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456490128675886467, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
       propertyPath: SwingSpeed
       value: 20
       objectReference: {fileID: 0}
@@ -20245,6 +20249,10 @@ PrefabInstance:
       propertyPath: SwingPrefab
       value: 
       objectReference: {fileID: 6797976705704228225, guid: fa0ce998e8c3a864cb0bf89b88528bba, type: 3}
+    - target: {fileID: 1456490128675886467, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
+      propertyPath: maxRopeRange
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1456490128675886467, guid: bbb06dea904fbd74587a89d729162bf8, type: 3}
       propertyPath: playerTransform
       value: 

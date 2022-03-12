@@ -25,7 +25,7 @@ public class Swing : MonoBehaviour
 
     public float minPointDistance = 10;
 
-    [HideInInspector]
+    //[HideInInspector]
     public Transform swingPosition;
 
     private GameObject currentSwingObject;
@@ -62,6 +62,7 @@ public class Swing : MonoBehaviour
                         {
                             currentSwingObject = InstantiateSwingObject(hit.point);
                             distanceJoint2D = currentSwingObject.GetComponent<DistanceJoint2D>();
+                            distanceJoint2D.distance = hitPointDistance;
                             isHooked = true;
                             swingPosition = currentSwingObject.transform.Find("SwingPivot");
                             swingPosition.transform.position = playerTransform.position;
@@ -95,11 +96,12 @@ public class Swing : MonoBehaviour
                         }
                         else
                         {
-                            distanceJoint2D.distance -= 0.1f;
+                            distanceJoint2D.distance -= 0.1f * Time.deltaTime;
                         }
                     }
-                    else{
-                        distanceJoint2D.distance += 0.1f;
+                    else
+                    {
+                        distanceJoint2D.distance += 0.1f * Time.deltaTime;
                     }
                 }
             }

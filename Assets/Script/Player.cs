@@ -180,6 +180,9 @@ public class Player : MonoBehaviour
             {
                 if (Vector2.Distance(transform.position, swing.swingPosition.position) > .25f)
                 {
+                    var direction = (swing.swingPosition.position - transform.position).normalized;
+                    controller2D.Move(direction * swing.SwingSpeed * Time.deltaTime, false);
+
                     transform.position = Vector3.Lerp(transform.position, swing.swingPosition.position, swing.SwingSpeed * Time.deltaTime);
                 }
             }
@@ -187,6 +190,7 @@ public class Player : MonoBehaviour
             {
                 controller2D.Move(velocity * Time.deltaTime);
                 swing.swingPosition.transform.position = transform.position;
+                swing.swingPosition.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
         }
 
