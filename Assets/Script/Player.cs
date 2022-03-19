@@ -5,12 +5,15 @@ using UnityEngine;
 [RequireComponent (typeof (CharacterController))]
 public class Player : MonoBehaviour
 {
-    CharacterController controller2D;
+    public CharacterController controller2D;
     public WallJump wallJump;
     public DoubleJump doubleJump;
     public Attack attack;
     public WallClimb wallClimb;
+
     public Swing swing;
+    public Vector3 SwingSpotOffset;
+    
     private PlayerState playerState;
 
     public Vector3 velocity;
@@ -113,6 +116,7 @@ public class Player : MonoBehaviour
                 }
             }
 
+            //TODO
             if (swing.isHooked && controller2D.info.down)
             {
                 swing.distanceJoint2D.distance -= 7;
@@ -176,20 +180,24 @@ public class Player : MonoBehaviour
             controller2D.Move(velocity * Time.deltaTime);
         else
         {
-            if (!controller2D.info.down)
+            //if (!controller2D.info.down)
+            if (swing.ShouldSwing)
             {
+                //Movimento de balanço
                 if (Vector2.Distance(transform.position, swing.swingPosition.position) > .25f)
                 {
                     var direction = (swing.swingPosition.position - transform.position).normalized;
                     controller2D.Move(direction * swing.SwingSpeed * Time.deltaTime, false);
 
-                    transform.position = Vector3.Lerp(transform.position, swing.swingPosition.position, swing.SwingSpeed * Time.deltaTime);
+                    transform.position = Vector3.Lerp(transform.position, swing.swingPosition.position + SwingSpotOffset, swing.SwingSpeed * Time.deltaTime);
                 }
             }
             else
             {
+                //Movimento de andar (normal)
+                swing.distanceJoint2D.distance = Vector3.Distance(transform.position, swing.currentSwingObject.transform.position);
                 controller2D.Move(velocity * Time.deltaTime);
-                swing.swingPosition.transform.position = transform.position;
+                swing.swingPosition.transform.position = transform.position - SwingSpotOffset;
                 swing.swingPosition.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
         }

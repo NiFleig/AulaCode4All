@@ -14,6 +14,8 @@ public class Swing : MonoBehaviour
 
     public float maxRopeRange = 5;
     public float minRopeRange = 2;
+    public float currentRopeRange = 0;
+    public float playerDistanceFromHookSpot = 0;
 
     public LayerMask LayerMask;
 
@@ -25,10 +27,12 @@ public class Swing : MonoBehaviour
 
     public float minPointDistance = 10;
 
+    public bool ShouldSwing;
+
     //[HideInInspector]
     public Transform swingPosition;
 
-    private GameObject currentSwingObject;
+    public GameObject currentSwingObject;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +67,7 @@ public class Swing : MonoBehaviour
                             currentSwingObject = InstantiateSwingObject(hit.point);
                             distanceJoint2D = currentSwingObject.GetComponent<DistanceJoint2D>();
                             distanceJoint2D.distance = hitPointDistance;
+                            currentRopeRange = hitPointDistance;
                             isHooked = true;
                             swingPosition = currentSwingObject.transform.Find("SwingPivot");
                             swingPosition.transform.position = playerTransform.position;
@@ -73,13 +78,29 @@ public class Swing : MonoBehaviour
                 {
                     var swingObjectVelocity = currentSwingObject.transform.Find("SwingPivot").GetComponent<Rigidbody2D>().velocity;
                     player.velocity = new Vector3(swingObjectVelocity.x * swingJumpForceX, 1 * swingJumpForceY, 0);
-
+                    
                     isHooked = false;
                     Destroy(currentSwingObject);
                 }
             }
+            
             if (isHooked)
             {
+                playerDistanceFromHookSpot = Vector3.Distance(player.transform.position - player.SwingSpotOffset, currentSwingObject.transform.position);
+
+                print($"Real Rope Distance = {playerDistanceFromHookSpot} | Desired Rope Distance = {currentRopeRange}");
+                
+                //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, player.jumpHeight, LayerMask);
+                //Debug.DrawRay(transform.position, Vector3.down * player.jumpHeight, Color.white);
+
+                if (player.controller2D.info.down)
+                    ShouldSwing = false;
+
+                //if(Input.mouseScrollDelta.y != 0)
+                if (currentRopeRange < playerDistanceFromHookSpot)
+                    ShouldSwing = true;
+
+
                 //if para qnd o tamanho da corda for maior que X, voltar para o máximo
                 if (distanceJoint2D != null)
                 {   
@@ -87,21 +108,26 @@ public class Swing : MonoBehaviour
                     {
                         if (distanceJoint2D.distance < maxRopeRange)
                         {
-                            print(distanceJoint2D.distance);
-
+                            //Dentro do Range de Distancia (min e max), então pode aumentar/diminuir a distancia da corda
                             if (Input.mouseScrollDelta.y != 0)
                             {
+                                currentRopeRange = Mathf.Clamp(currentRopeRange += Input.mouseScrollDelta.normalized.y * ChangeDistanceSpeed, minRopeRange, maxRopeRange);
+
                                 distanceJoint2D.distance += Input.mouseScrollDelta.normalized.y * ChangeDistanceSpeed;
                             }
                         }
                         else
                         {
-                            distanceJoint2D.distance -= 0.1f * Time.deltaTime;
+                            //Tentando aumentar a corda além do máximo.
+                            //Impedir que isso aconteca diminuindo o valor da distancia
+                            distanceJoint2D.distance -= 0.1f;
                         }
                     }
                     else
                     {
-                        distanceJoint2D.distance += 0.1f * Time.deltaTime;
+                        //Tentando diminuir a corda além do mínimo.
+                        //Impedir que isso aconteca aumentando o valor da distancia
+                        distanceJoint2D.distance += 0.1f;
                     }
                 }
             }
