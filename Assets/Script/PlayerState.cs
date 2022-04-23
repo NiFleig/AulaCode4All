@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerState : MonoBehaviour
 {
+    public int CurrentHP;
+    public int MaxHP;
+
     private Player player;
 
     public bool bearEquip = false;
@@ -18,7 +21,6 @@ public class PlayerState : MonoBehaviour
     public GameObject monkeySuit;
     public GameObject fishSuit;
 
-
     public GameObject pauseUI;
 
     public DoubleJump dJump;
@@ -29,11 +31,34 @@ public class PlayerState : MonoBehaviour
         player = GetComponent<Player>();
         dJump = chickenSuit.GetComponent<DoubleJump>();
         wJump = monkeySuit.GetComponent<WallJump>();
+
+
     }
 
     void Update()
     {
-        if(bearEquip == true && player.currentState == Player.states.bear)
+        UpdateEquippedSuit();
+
+        CheckPause();
+    }
+
+    public void UpdateHP(int amount)
+    {
+        if (CurrentHP + amount > MaxHP)
+        {
+            CurrentHP = MaxHP;
+            return;
+        }
+
+        CurrentHP += amount;
+
+        if (CurrentHP <= 0)
+            StartCoroutine(Death());
+    }
+
+    public void UpdateEquippedSuit()
+    {
+        if (bearEquip == true && player.currentState == Player.states.bear)
         {
             noSuit.SetActive(false);
             bearSuit.SetActive(true);
@@ -42,31 +67,33 @@ public class PlayerState : MonoBehaviour
             fishSuit.SetActive(false);
         }
 
-        if(chickenEquip == true && player.currentState == Player.states.chicken)
+        if (chickenEquip == true && player.currentState == Player.states.chicken)
         {
             noSuit.SetActive(false);
             bearSuit.SetActive(false);
             chickenSuit.SetActive(true);
             monkeySuit.SetActive(false);
             fishSuit.SetActive(false);
-        }else
+        }
+        else
         {
             dJump.djump = true;
         }
 
-        if(monkeyEquip == true && player.currentState == Player.states.monkey)
+        if (monkeyEquip == true && player.currentState == Player.states.monkey)
         {
             noSuit.SetActive(false);
             bearSuit.SetActive(false);
             chickenSuit.SetActive(false);
             monkeySuit.SetActive(true);
             fishSuit.SetActive(false);
-        }else
+        }
+        else
         {
             wJump.wSlide = false;
         }
 
-        if(fishEquip == true && player.currentState == Player.states.fish)
+        if (fishEquip == true && player.currentState == Player.states.fish)
         {
             noSuit.SetActive(false);
             bearSuit.SetActive(false);
@@ -75,12 +102,17 @@ public class PlayerState : MonoBehaviour
             fishSuit.SetActive(true);
         }
 
-        if(player.pause == true)
+    }
+
+    public void CheckPause()
+    {
+        if (player.pause == true)
         {
             player.currentState = Player.states.pause;
             Time.timeScale = 0;
             pauseUI.SetActive(true);
-        } else
+        }
+        else
         {
             Time.timeScale = 1;
             pauseUI.SetActive(false);
@@ -89,6 +121,10 @@ public class PlayerState : MonoBehaviour
 
     public IEnumerator Death()
     {
+        player.currentState = Player.states.death;
+        player.playerAnim.SetBool("IsDead", true);
+        player.mainAnim.SetBool("IsDead", true);
+
         Time.timeScale = 0f;
         player.playerAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
 
@@ -99,7 +135,10 @@ public class PlayerState : MonoBehaviour
         yield return StartCoroutine(DeathDelay(1f));
         player.playerAnim.SetBool("IsDead", false);
         player.mainAnim.SetBool("IsDead", false);
-        player.currentState = Player.states.bear;
+        player.currentState = Player.states.naked;
+
+        CurrentHP = MaxHP;
+
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
        //Debug.Log("death");
     }

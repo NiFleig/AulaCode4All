@@ -192,10 +192,7 @@ public class CharacterController : MonoBehaviour
     {
         if(collision.collider.tag == "Obstacle" && EnableInvincibility == false)
         {
-            StartCoroutine(state.Death());
-            player.currentState = Player.states.death;
-            player.playerAnim.SetBool("IsDead", true);
-            player.mainAnim.SetBool("IsDead", true);
+            state.UpdateHP(-1);
         }
     }
 
