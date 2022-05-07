@@ -26,6 +26,7 @@ public class PlayerState : MonoBehaviour
     public DoubleJump dJump;
     public WallJump wJump;
 
+
     void Start()
     {
         player = GetComponent<Player>();
@@ -119,6 +120,7 @@ public class PlayerState : MonoBehaviour
         }
     }
 
+
     public IEnumerator Death()
     {
         player.currentState = Player.states.death;
@@ -140,7 +142,7 @@ public class PlayerState : MonoBehaviour
         CurrentHP = MaxHP;
 
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-       //Debug.Log("death");
+        //Debug.Log("death");
     }
 
     public IEnumerator DeathDelay(float spawnDelay)
