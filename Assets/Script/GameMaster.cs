@@ -30,6 +30,7 @@ public class GameMaster : MonoBehaviour
     
     public static void KillPlayer(PlayerState player)
     {
+        print("isKillPlayer");
         gm.RespawnPlayer();
     }
 

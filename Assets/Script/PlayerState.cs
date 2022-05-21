@@ -10,10 +10,12 @@ public class PlayerState : MonoBehaviour
 
     private Player player;
 
+    public bool noSuitEquip = true;
     public bool bearEquip = false;
     public bool chickenEquip = false;
     public bool monkeyEquip = false;
     public bool fishEquip = false;
+    public bool frogEquip = false;
 
     public GameObject noSuit;
     public GameObject bearSuit;
@@ -25,7 +27,6 @@ public class PlayerState : MonoBehaviour
 
     public DoubleJump dJump;
     public WallJump wJump;
-
 
     void Start()
     {
@@ -130,14 +131,15 @@ public class PlayerState : MonoBehaviour
         Time.timeScale = 0f;
         player.playerAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
 
-        yield return StartCoroutine(WaitForRealSeconds(2));
-
-        GameMaster.KillPlayer(this);
+        //yield return StartCoroutine(WaitForRealSeconds(2));
 
         yield return StartCoroutine(DeathDelay(1f));
+        GameMaster.KillPlayer(this);
         player.playerAnim.SetBool("IsDead", false);
         player.mainAnim.SetBool("IsDead", false);
         player.currentState = Player.states.naked;
+
+        
 
         CurrentHP = MaxHP;
 
