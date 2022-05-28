@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     public DoubleJump doubleJump;
     public Attack attack;
     public WallClimb wallClimb;
-
     public Swing swing;
+
     public Vector3 SwingSpotOffset;
     
     private PlayerState playerState;
@@ -144,33 +144,42 @@ public class Player : MonoBehaviour
                 playerAnim.SetBool("Climbing", false);
             }
 
-            if(Input.GetKeyDown(KeyCode.Alpha1) && playerState.bearEquip == true)
+            if(swing.isHooked == false)
             {
-                currentState = states.bear;
-                playerAnim = animatorList[1];
+                if(Input.GetKeyDown(KeyCode.Alpha1) && playerState.bearEquip == true)
+                {
+                    currentState = states.bear;
+                    playerAnim = animatorList[1];
+
+                    wallJump.wSlide = false;
+                }
+                if(Input.GetKeyDown(KeyCode.Alpha2) && playerState.chickenEquip == true)
+                {
+                    currentState = states.chicken;
+                    playerAnim = animatorList[2];
+
+                    wallJump.wSlide = false;
+                }
+                if(Input.GetKeyDown(KeyCode.Alpha3) && playerState.monkeyEquip == true)
+                {
+                    currentState = states.monkey;
+                    playerAnim = animatorList[3];
+                }
+                if(Input.GetKeyDown(KeyCode.Alpha4) && playerState.fishEquip == true)
+                {
+                    currentState = states.fish;
+                    playerAnim = animatorList[4];
+
+                    wallJump.wSlide = false;
+                }
+                if(Input.GetKeyDown(KeyCode.Alpha5) && playerState.frogEquip == true)
+            {
+                currentState = states.frog;
+                playerAnim = animatorList[5];
 
                 wallJump.wSlide = false;
+                }
             }
-            if(Input.GetKeyDown(KeyCode.Alpha2) && playerState.chickenEquip == true)
-            {
-                currentState = states.chicken;
-                playerAnim = animatorList[2];
-
-                wallJump.wSlide = false;
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha3) && playerState.monkeyEquip == true)
-            {
-                currentState = states.monkey;
-                playerAnim = animatorList[3];
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha4) && playerState.fishEquip == true)
-            {
-                currentState = states.fish;
-                playerAnim = animatorList[4];
-
-                wallJump.wSlide = false;
-            }
-
             input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
             if(Input.GetKeyDown(KeyCode.Space))
@@ -275,26 +284,29 @@ public class Player : MonoBehaviour
                 controller2D.Move(velocity * Time.deltaTime);
             else
             {
-                //if (!controller2D.info.down)
-                if (swing.ShouldSwing)
+                if(swing.swingPosition != null)
                 {
-                    //Movimento de balan�o
-                    if (Vector2.Distance(transform.position, swing.swingPosition.position) > .25f)
+                    //if (!controller2D.info.down)
+                    if (swing.ShouldSwing)
                     {
-                        var direction = (swing.swingPosition.position - transform.position).normalized;
-                        controller2D.Move(direction * swing.SwingSpeed * Time.deltaTime, false);
+                        //Movimento de balan�o
+                        if (Vector2.Distance(transform.position, swing.swingPosition.position) > .25f)
+                        {
+                            var direction = (swing.swingPosition.position - transform.position).normalized;
+                            controller2D.Move(direction * swing.SwingSpeed * Time.deltaTime, false);
 
-                        transform.position = Vector3.Lerp(transform.position, swing.swingPosition.position + SwingSpotOffset, swing.SwingSpeed * Time.deltaTime);
+                            transform.position = Vector3.Lerp(transform.position, swing.swingPosition.position + SwingSpotOffset, swing.SwingSpeed * Time.deltaTime);
+                        }
                     }
-                }
-                else
-                {
-                    //Movimento de andar (normal)
-                    swing.distanceJoint2D.distance = Vector3.Distance(transform.position, swing.currentSwingObject.transform.position);
-                    controller2D.Move(velocity * Time.deltaTime);
-                    swing.swingPosition.transform.position = transform.position - SwingSpotOffset;
-                    swing.swingPosition.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                }
+                    else
+                    {
+                        //Movimento de andar (normal)
+                        swing.distanceJoint2D.distance = Vector3.Distance(transform.position, swing.currentSwingObject.transform.position);
+                        controller2D.Move(velocity * Time.deltaTime);
+                        swing.swingPosition.transform.position = transform.position - SwingSpotOffset;
+                        swing.swingPosition.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    }
+                } 
             }
 
             if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))

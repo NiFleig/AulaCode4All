@@ -22,18 +22,20 @@ public class PlayerState : MonoBehaviour
     public GameObject chickenSuit;
     public GameObject monkeySuit;
     public GameObject fishSuit;
+    public GameObject frogSuit;
 
     public GameObject pauseUI;
 
     public DoubleJump dJump;
     public WallJump wJump;
+    public Swing swing;
 
     void Start()
     {
         player = GetComponent<Player>();
         dJump = chickenSuit.GetComponent<DoubleJump>();
         wJump = monkeySuit.GetComponent<WallJump>();
-
+        swing = frogSuit.GetComponent<Swing>();
 
     }
 
@@ -60,48 +62,65 @@ public class PlayerState : MonoBehaviour
 
     public void UpdateEquippedSuit()
     {
-        if (bearEquip == true && player.currentState == Player.states.bear)
+        if(swing.isHooked == false)
         {
-            noSuit.SetActive(false);
-            bearSuit.SetActive(true);
-            chickenSuit.SetActive(false);
-            monkeySuit.SetActive(false);
-            fishSuit.SetActive(false);
-        }
+            if (bearEquip == true && player.currentState == Player.states.bear)
+            {
+                noSuit.SetActive(false);
+                bearSuit.SetActive(true);
+                chickenSuit.SetActive(false);
+                monkeySuit.SetActive(false);
+                fishSuit.SetActive(false);
+                frogSuit.SetActive(false);
+            }
 
-        if (chickenEquip == true && player.currentState == Player.states.chicken)
-        {
-            noSuit.SetActive(false);
-            bearSuit.SetActive(false);
-            chickenSuit.SetActive(true);
-            monkeySuit.SetActive(false);
-            fishSuit.SetActive(false);
-        }
-        else
-        {
-            dJump.djump = true;
-        }
+            if (chickenEquip == true && player.currentState == Player.states.chicken)
+            {
+                noSuit.SetActive(false);
+                bearSuit.SetActive(false);
+                chickenSuit.SetActive(true);
+                monkeySuit.SetActive(false);
+                fishSuit.SetActive(false);
+                frogSuit.SetActive(false);
+            }
+            else
+            {
+                dJump.djump = true;
+            }
 
-        if (monkeyEquip == true && player.currentState == Player.states.monkey)
-        {
-            noSuit.SetActive(false);
-            bearSuit.SetActive(false);
-            chickenSuit.SetActive(false);
-            monkeySuit.SetActive(true);
-            fishSuit.SetActive(false);
-        }
-        else
-        {
-            wJump.wSlide = false;
-        }
+            if (monkeyEquip == true && player.currentState == Player.states.monkey)
+            {
+                noSuit.SetActive(false);
+                bearSuit.SetActive(false);
+                chickenSuit.SetActive(false);
+                monkeySuit.SetActive(true);
+                fishSuit.SetActive(false);
+                frogSuit.SetActive(false);
+            }
+            else
+            {
+                wJump.wSlide = false;
+            }
 
-        if (fishEquip == true && player.currentState == Player.states.fish)
-        {
-            noSuit.SetActive(false);
-            bearSuit.SetActive(false);
-            chickenSuit.SetActive(false);
-            monkeySuit.SetActive(false);
-            fishSuit.SetActive(true);
+            if (fishEquip == true && player.currentState == Player.states.fish)
+            {
+                noSuit.SetActive(false);
+                bearSuit.SetActive(false);
+                chickenSuit.SetActive(false);
+                monkeySuit.SetActive(false);
+                fishSuit.SetActive(true);
+                frogSuit.SetActive(false);
+            }
+
+            if (frogEquip == true && player.currentState == Player.states.frog)
+            {
+                noSuit.SetActive(false);
+                bearSuit.SetActive(false);
+                chickenSuit.SetActive(false);
+                monkeySuit.SetActive(false);
+                fishSuit.SetActive(false);
+                frogSuit.SetActive(true);
+            }
         }
 
     }

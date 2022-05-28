@@ -134,8 +134,14 @@ public class Swing : MonoBehaviour
         }
         else
         {
+            
             if (currentSwingObject != null)
+            {
+                isHooked = false;
+
                 Destroy(currentSwingObject);
+            }
+               
         }
 
         Debug.DrawRay(transform.position, AimDirection() * aimRange, Color.red);

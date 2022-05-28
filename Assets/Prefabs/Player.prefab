@@ -429,11 +429,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d358e47ad23e4e94781a2cac4a302a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller2D: {fileID: 0}
   wallJump: {fileID: 2927196566566320179}
   doubleJump: {fileID: 2927196565838157955}
   attack: {fileID: 246354520937693237}
   wallClimb: {fileID: 2018600771}
-  swingSkill: {fileID: 0}
+  swing: {fileID: 1456490128675886467}
+  SwingSpotOffset: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   input: {x: 0, y: 0}
   hSpeed: 7
@@ -457,15 +459,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a942810385d2d344a83881002c57a505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bearEquip: 0
-  chickenEquip: 0
-  monkeyEquip: 0
-  fishEquip: 0
+  CurrentHP: 5
+  MaxHP: 5
+  noSuitEquip: 1
+  bearEquip: 1
+  chickenEquip: 1
+  monkeyEquip: 1
+  fishEquip: 1
+  frogEquip: 1
   noSuit: {fileID: 7798125091856557542}
   bearSuit: {fileID: 2927196567185604102}
   chickenSuit: {fileID: 2927196565838158012}
   monkeySuit: {fileID: 2927196566566320173}
   fishSuit: {fileID: 2927196566341019948}
+  frogSuit: {fileID: 6006943942564835939}
   pauseUI: {fileID: 0}
   dJump: {fileID: 0}
   wJump: {fileID: 0}
@@ -905,7 +912,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6006943942564835939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.02, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 2927196566149183568}
@@ -952,7 +959,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: f0f4170203230e747b06252e32e3595b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7052169, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -998,16 +1005,22 @@ MonoBehaviour:
   player: {fileID: 2927196566149183567}
   playerTransform: {fileID: 2927196566149183568}
   SwingPrefab: {fileID: 6797976705704228225, guid: fa0ce998e8c3a864cb0bf89b88528bba, type: 3}
-  Range: 20
+  aimRange: 20
+  maxRopeRange: 20
+  minRopeRange: 2
+  currentRopeRange: 0
+  playerDistanceFromHookSpot: 0
   LayerMask:
     serializedVersion: 2
     m_Bits: 512
-  SwingSpeed: 10
+  SwingSpeed: 20
   isHooked: 0
-  swingJumpForceX: 3
-  swingJumpForceY: 7
+  swingJumpForceX: 5
+  swingJumpForceY: 30
   minPointDistance: 2
+  ShouldSwing: 0
   swingPosition: {fileID: 0}
+  currentSwingObject: {fileID: 0}
 --- !u!1 &6978792851518970637
 GameObject:
   m_ObjectHideFlags: 0

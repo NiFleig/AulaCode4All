@@ -193,7 +193,28 @@ public class CharacterController : MonoBehaviour
         if(collision.collider.tag == "Obstacle" && EnableInvincibility == false)
         {
             state.UpdateHP(-1);
+            StartCoroutine(Turninvincible(2f));
         }
+        if(collision.collider.tag == "InstaKill" && EnableInvincibility == false)
+        {
+            state.UpdateHP(-5);
+        }
+    }
+
+     void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.collider.tag == "Obstacle" && EnableInvincibility == false)
+        {
+            state.UpdateHP(-1);
+            StartCoroutine(Turninvincible(2f));
+        }
+    }
+
+    IEnumerator Turninvincible(float seconds)
+    {
+        EnableInvincibility = true;
+        yield return new WaitForSeconds(seconds);
+        EnableInvincibility = false;
     }
 
     struct RayCastOrigins
