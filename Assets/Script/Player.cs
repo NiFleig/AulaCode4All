@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
 
     public float jumpHeight = 4f;
     public float timeToFall = .4f;
+    public float glideFactor = 1f;
 
     public float smoothVelocity;
 
@@ -123,6 +124,14 @@ public class Player : MonoBehaviour
                 }
             }
 
+            if(Input.GetKey(KeyCode.Space) && doubleJump.djump == true)
+            {
+                glideFactor = .1f;
+            }else
+            {
+                glideFactor = 1f;
+            }
+
             if(Input.GetKeyDown(KeyCode.RightShift) && currentState == Player.states.bear)
             {
                 attack.Action();
@@ -173,7 +182,7 @@ public class Player : MonoBehaviour
                     wallJump.wSlide = false;
                 }
                 if(Input.GetKeyDown(KeyCode.Alpha5) && playerState.frogEquip == true)
-            {
+                {
                 currentState = states.frog;
                 playerAnim = animatorList[5];
 
@@ -248,6 +257,7 @@ public class Player : MonoBehaviour
                 playerAnim.SetBool("Climbing", false);
             }
 
+            /*
             if(Input.GetKeyDown(KeyCode.Alpha1) && playerState.bearEquip == true)
             {
                 currentState = states.bear;
@@ -274,11 +284,11 @@ public class Player : MonoBehaviour
 
                 wallJump.wSlide = false;
             }
-
+            */
             float targetVeloX = input.x * hSpeed;
 
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVeloX, ref smoothVelocity, (controller2D.info.down) ? groundAcceleration : airAcceleration);
-            velocity.y += grav * Time.deltaTime;
+            velocity.y += grav * glideFactor * Time.deltaTime;
 
             if (!swing.isHooked)
                 controller2D.Move(velocity * Time.deltaTime);

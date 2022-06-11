@@ -288,12 +288,12 @@ GameObject:
   - component: {fileID: 2927196566149183568}
   - component: {fileID: 2927196566149183571}
   - component: {fileID: 2927196566149183570}
+  - component: {fileID: 1695668341408114018}
   - component: {fileID: 2927196566149183565}
+  - component: {fileID: 1351837252}
   - component: {fileID: 2927196566149183564}
   - component: {fileID: 2927196566149183567}
   - component: {fileID: 1986528751}
-  - component: {fileID: 1351837252}
-  - component: {fileID: 1695668341408114018}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -371,6 +371,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &1695668341408114018
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2927196566149183566}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8d296b412efe0848a8f6cf2435bbb47, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &2927196566149183565
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -397,6 +416,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6668229, y: 1.952897}
   m_EdgeRadius: 0
+--- !u!50 &1351837252
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2927196566149183566}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &2927196566149183564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,46 +516,7 @@ MonoBehaviour:
   pauseUI: {fileID: 0}
   dJump: {fileID: 0}
   wJump: {fileID: 0}
---- !u!50 &1351837252
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2927196566149183566}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!95 &1695668341408114018
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2927196566149183566}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d8d296b412efe0848a8f6cf2435bbb47, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  swing: {fileID: 0}
 --- !u!1 &2927196566341019948
 GameObject:
   m_ObjectHideFlags: 0
