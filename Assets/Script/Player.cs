@@ -78,10 +78,10 @@ public class Player : MonoBehaviour
         }
 
         if(currentState != states.death)
-        {  
+        {
             DetectInput();
 
-            if(swing.isHooked == false)
+            if (swing.isHooked == false)
             {
                 if(Input.GetKeyDown(KeyCode.Alpha1) && playerState.bearEquip == true)
                 {
@@ -119,24 +119,31 @@ public class Player : MonoBehaviour
             }
             input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-
             float targetVeloX = input.x * hSpeed;
 
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVeloX, ref smoothVelocity, (controller2D.info.down) ? groundAcceleration : airAcceleration);
-            print($"Vy: {velocity.y} | g: {grav}");
-            if(currentState == states.chicken)
-            {
-                if(velocity.y < 0)
-                {
-                    velocity.y += grav * glideFactor * Time.deltaTime;
-                }else
-                {
-                    velocity.y += grav * Time.deltaTime;
-                }
-            }else
-            {
-                velocity.y += grav * Time.deltaTime;
-            }
+
+
+            //print($"Vy: {velocity.y} | G: {grav}");
+
+            float whenChickenGravity = grav * glideFactor * Time.deltaTime;
+            float commonGravity = grav * Time.deltaTime;
+            bool shouldIChangeGravity = currentState == states.chicken && velocity.y < 0;
+
+            velocity.y += shouldIChangeGravity ? whenChickenGravity : commonGravity;
+
+            //velocity.y += currentState == states.chicken && velocity.y < 0 ? grav * glideFactor * Time.deltaTime;
+
+            //if (currentState == states.chicken)
+            //{
+            //    if (velocity.y < 0)
+            //        velocity.y += grav * glideFactor * Time.deltaTime;
+            //    else
+            //        velocity.y += grav * Time.deltaTime;
+            //}
+            //else
+            //    velocity.y += grav * Time.deltaTime;
+
 
             if (!swing.isHooked)
                 controller2D.Move(velocity * Time.deltaTime);
@@ -167,89 +174,93 @@ public class Player : MonoBehaviour
                 } 
             }
 
-            
         }
     }
 
     void DetectInput()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (controller2D.info.down)
             {
-                if(controller2D.info.down)
+                velocity.y = vSpeed;
+                jump.Play();
+            }
+            else if (!controller2D.info.down && doubleJump.jump && !doubleJump.djump)
+            {
+                velocity.y = vSpeed;
+                doubleJump.djump = true;
+                jump.Play();
+
+                playerAnim.SetBool("DoubleJump", true);
+            }
+
+            if (wallJump.wSlide)
+            {
+                if (input.x == 0)
                 {
-                    velocity.y = vSpeed;
+                    velocity.x = -wallJump.wDirection * wallJump.wJump.x;
+                    velocity.y = wallJump.wJump.y;
                     jump.Play();
-                }else if(!controller2D.info.down && doubleJump.jump && !doubleJump.djump)
+                    playerAnim.SetBool("WallJump", true);
+                }
+                else if (input.x == wallJump.wDirection)
                 {
-                    velocity.y = vSpeed;
-                    doubleJump.djump = true;
+                    velocity.x = -wallJump.wDirection * wallJump.wHop.x;
+                    velocity.y = wallJump.wHop.y;
                     jump.Play();
-
-                    playerAnim.SetBool("DoubleJump", true);
+                    playerAnim.SetBool("WallJump", true);
                 }
-
-                if(wallJump.wSlide)
+                else
                 {
-                    if(input.x == 0)
-                    {
-                        velocity.x = -wallJump.wDirection * wallJump.wJump.x;
-                        velocity.y = wallJump.wJump.y;
-                        jump.Play();
-                        playerAnim.SetBool("WallJump", true);
-                    }else if(input.x == wallJump.wDirection)
-                    {
-                        velocity.x = -wallJump.wDirection * wallJump.wHop.x;
-                        velocity.y = wallJump.wHop.y;
-                        jump.Play();
-                        playerAnim.SetBool("WallJump", true);
-                    }else
-                    {
-                        velocity.x = -wallJump.wDirection * wallJump.wLeap.x;
-                        velocity.y = wallJump.wLeap.y;
-                        jump.Play();
-                        playerAnim.SetBool("WallJump", true);
-                    }
-                }
-
-                if (swing.isHooked && controller2D.info.down)
-                {
-                    swing.distanceJoint2D.distance -= 7;
+                    velocity.x = -wallJump.wDirection * wallJump.wLeap.x;
+                    velocity.y = wallJump.wLeap.y;
+                    jump.Play();
+                    playerAnim.SetBool("WallJump", true);
                 }
             }
 
-            if(Input.GetKey(KeyCode.Space) && doubleJump.djump == true)
+            //TODO
+            if (swing.isHooked && controller2D.info.down)
             {
-                glideFactor = .1f;
-            }else
-            {
-                glideFactor = 1f;
+                swing.distanceJoint2D.distance -= 7;
             }
+        }
 
-            if(Input.GetKeyDown(KeyCode.RightShift) && currentState == Player.states.bear)
-            {
-                attack.Action();
+        if (Input.GetKey(KeyCode.Space) && doubleJump.djump == true)
+        {
+            glideFactor = .1f;
+        }
+        else
+        {
+            glideFactor = 1f;
+        }
 
-                playerAnim.SetTrigger("Attacking");
-            }
+        if (Input.GetKeyDown(KeyCode.RightShift) && currentState == Player.states.bear)
+        {
+            attack.Action();
 
-            if(Input.GetKey(KeyCode.RightShift) && wallClimb.wClimb)
-            {
-                velocity = new Vector2(velocity.x, 0);
+            playerAnim.SetTrigger("Attacking");
+        }
 
-                float wSpeed = input.y > 0 ? wallClimb.wClimbSpeed : 1;
+        if (Input.GetKey(KeyCode.RightShift) && wallClimb.wClimb)
+        {
+            velocity = new Vector2(velocity.x, 0);
 
-                velocity = new Vector2(velocity.x, input.y * (hSpeed * wSpeed));
+            float wSpeed = input.y > 0 ? wallClimb.wClimbSpeed : 1;
 
-                playerAnim.SetBool("Climbing", true);
-            }else
-            {
-                playerAnim.SetBool("Climbing", false);
-            }
+            velocity = new Vector2(velocity.x, input.y * (hSpeed * wSpeed));
 
-            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
-            {
-                pause = !pause;
-            }
+            playerAnim.SetBool("Climbing", true);
+        }
+        else
+        {
+            playerAnim.SetBool("Climbing", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+            pause = !pause;
+        }
     }
-
 }

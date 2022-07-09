@@ -17,8 +17,8 @@ public class Bullet : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         moveDirection = (target.transform.position - transform.position).normalized * moveSpeed;
         rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
-        Debug.Log("moveD =" + moveDirection);
-        Debug.Log("moveS =" + moveSpeed);
+        //Debug.Log("moveD =" + moveDirection);
+        //Debug.Log("moveS =" + moveSpeed);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
