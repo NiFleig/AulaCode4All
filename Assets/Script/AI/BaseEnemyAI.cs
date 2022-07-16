@@ -10,6 +10,7 @@ public enum EnemyState
     Combat
 }
 
+[RequireComponent(typeof(SpriteRenderer))]
 public abstract class BaseEnemyAI : MonoBehaviour
 {
     public EnemyState currentState;
@@ -23,6 +24,9 @@ public abstract class BaseEnemyAI : MonoBehaviour
     public UnityEvent OnEnterCombatStage;
     public UnityEvent OnExitCombatStage;
 
+    public SpriteRenderer SpriteRenderer;
+    private Vector3 lastFramePosition;
+    
     void Start()
     {
     }
@@ -30,6 +34,18 @@ public abstract class BaseEnemyAI : MonoBehaviour
     void Update()
     {
         ChangeState();
+
+      //  IsMoving();
+    }
+    
+    public void IsMoving()
+    {
+        float distanceFromLastPosition = Vector3.Distance(lastFramePosition, transform.position);
+
+        if (distanceFromLastPosition != 0)
+            SpriteRenderer.flipX = distanceFromLastPosition < 0 ? false : true;
+
+        lastFramePosition = transform.position;
     }
 
     protected virtual bool IsAttentionDistance()
@@ -65,18 +81,18 @@ public abstract class BaseEnemyAI : MonoBehaviour
 
     protected virtual void OnCombat()
     {
-        print("BaseEnemyAi está em combate.");
+        print("BaseEnemyAi estï¿½ em combate.");
         Attack();
     }
 
     protected virtual void OnAttention()
     {
-        print("BaseEnemyAi está em atenção.");
+        print("BaseEnemyAi estï¿½ em atenï¿½ï¿½o.");
     }
 
     protected virtual void OnIdle()
     {
-        print("BaseEnemyAi está parada.");
+        print("BaseEnemyAi estï¿½ parada.");
     }
 
     private void OnDrawGizmosSelected()
