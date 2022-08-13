@@ -60,6 +60,11 @@ public class PlayerState : MonoBehaviour
             StartCoroutine(Death());
     }
 
+    public void ApplyDamage(int amount)
+    {
+        CurrentHP -= amount < 0 ? amount : -amount;
+    }
+
     public void UpdateEquippedSuit()
     {
         if(swing.isHooked == false)

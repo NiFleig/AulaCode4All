@@ -13,18 +13,24 @@ public enum EnemyState
 [RequireComponent(typeof(SpriteRenderer))]
 public abstract class BaseEnemyAI : MonoBehaviour
 {
+    [Header("State Variables")]
     public EnemyState currentState;
 
+    [Header("Sensor Variables")]
     public float ViewDistance;
-
     public float AttackDistance;
+    public Transform PlayerTransform;
+    public Vector3 TargetPosition;
 
-    public Transform TargetTransform;
-
+    [Header("Events")]
     public UnityEvent OnEnterCombatStage;
     public UnityEvent OnExitCombatStage;
 
+    [Header("Components")]
     public SpriteRenderer SpriteRenderer;
+
+
+    [Header("Misc")]
     private Vector3 lastFramePosition;
     
     void Start()
@@ -50,12 +56,12 @@ public abstract class BaseEnemyAI : MonoBehaviour
 
     protected virtual bool IsAttentionDistance()
     {
-        return Vector3.Distance(transform.position, TargetTransform.position) < ViewDistance;
+        return Vector3.Distance(transform.position, PlayerTransform.position) < ViewDistance;
     }
 
     protected virtual bool IsCombatDistance()
     {
-        return Vector3.Distance(transform.position, TargetTransform.position) < AttackDistance;
+        return Vector3.Distance(transform.position, PlayerTransform.position) < AttackDistance;
     }
 
     public abstract void Attack();
@@ -79,10 +85,9 @@ public abstract class BaseEnemyAI : MonoBehaviour
         }
     }
 
-    protected virtual void OnCombat()
+    protected virtual void OnIdle()
     {
-        print("BaseEnemyAi est� em combate.");
-        Attack();
+        print("BaseEnemyAi est� parada.");
     }
 
     protected virtual void OnAttention()
@@ -90,9 +95,10 @@ public abstract class BaseEnemyAI : MonoBehaviour
         print("BaseEnemyAi est� em aten��o.");
     }
 
-    protected virtual void OnIdle()
+    protected virtual void OnCombat()
     {
-        print("BaseEnemyAi est� parada.");
+        print("BaseEnemyAi est� em combate.");
+        Attack();
     }
 
     private void OnDrawGizmosSelected()
